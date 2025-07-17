@@ -3,1178 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الاختبارات الإلكتروني - الدراسات التاريخية</title>
+    <title>يلا اختبار | تسجيل الدخول</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
         :root {
-            --primary-color: #3d6e6a; /* أخضر غامق بارد */
-            --secondary-color: #455A64; /* رمادي مزرق */
-            --light-color: #CFD8DC; /* رمادي فاتح */
-            --dark-color: #263238; /* أسود رمادي */
-            --correct-color: #4CAF50; /* أخضر للإجابات الصحيحة */
-            --wrong-color: #F44336; /* أحمر للإجابات الخاطئة */
+            --primary-color: #FF7A00;
+            --primary-light: #FF9A42;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gray: #E0E0E0;
+            --dark-gray: #757575;
+            --yellow: #FFF3E0;
+            --science-color: #4CAF50;
+            --arts-color: #2196F3;
         }
-            
+        
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            color: var(--dark-color);
+            background: linear-gradient(135deg, #FF7A00 0%, #FFB800 100%);
+            animation: gradientBG 8s ease infinite;
+            background-size: 200% 200%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: cardEntrance 1s ease;
         }
         
-        h1 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
+        @keyframes cardEntrance {
+            from { 
+                transform: rotateY(90deg) translateY(50px);
+                opacity: 0;
+            }
+            to { 
+                transform: rotateY(0) translateY(0);
+                opacity: 1;
+            }
         }
         
-        .timer {
+        .header {
             background-color: var(--primary-color);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 18px;
+            color: var(--white);
+            padding: 25px;
+            text-align: center;
+            font-size: 1.8rem;
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::after {
+            content: "";
             position: absolute;
-            left: 30px;
-            top: 30px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                      rgba(255,255,255,0) 0%, 
+                      rgba(255,255,255,0.3) 50%, 
+                      rgba(255,255,255,0) 100%);
+            animation: shine 3s infinite;
         }
         
-        .units-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 30px;
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
-        .unit-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            animation: float 3s ease-in-out infinite;
         }
         
-        .unit-btn:hover {
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            animation: slideIn 0.5s ease backwards;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: var(--yellow);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
             background-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        
-        .quiz-section {
-            display: none;
-        }
-        
-        .quiz-section.active {
-            display: block;
-        }
-        
-        .question-part {
-            display: none;
-            margin-bottom: 30px;
-        }
-        
-        .question-part.active {
-            display: block;
-        }
-        
-        .question {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-right: 4px solid var(--primary-color);
-        }
-        
-        .question h3 {
-            margin-top: 0;
-            color: var(--secondary-color);
-        }
-        
-        .options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
             margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: pulse 2s infinite;
         }
         
-        @media (max-width: 600px) {
-            .options {
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 122, 0, 0.7); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(255, 122, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 122, 0, 0); }
+        }
+        
+        .tests-container {
+            display: none;
+            padding: 20px;
+        }
+        
+        .branch-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .science-btn {
+            background-color: var(--science-color);
+            color: white;
+        }
+        
+        .arts-btn {
+            background-color: var(--arts-color);
+            color: white;
+        }
+        
+        .all-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .test-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: right;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .test-btn.science {
+            background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+        }
+        
+        .test-btn.arts {
+            background: linear-gradient(135deg, #64B5F6 0%, #1E88E5 100%);
+        }
+        
+        .test-btn i {
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .alert-error {
+            background-color: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF9A9A;
+        }
+        
+        .alert-success {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #A5D6A7;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            .header {
+                font-size: 1.5rem;
+                padding: 20px;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+            
+            .tests-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
-        .option {
-            background-color: white;
-            border: 1px solid var(--light-color);
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .option:hover {
-            border-color: var(--secondary-color);
-        }
-        
-        .option.selected {
-            border-color: var(--primary-color);
-            background-color: rgba(46, 125, 50, 0.1);
-        }
-        
-        .navigation-btns {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-        
-        .nav-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .nav-btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        .nav-btn:disabled {
-            background-color: var(--light-color);
-            cursor: not-allowed;
-        }
-        
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            display: block;
-            margin: 30px auto 0;
-        }
-        
-        .submit-btn:hover {
-            background-color: #1B5E20;
-        }
-        
-        .results {
-            display: none;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-        
-        .results h2 {
-            color: var(--primary-color);
-            text-align: center;
-        }
-        
-        .result-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--light-color);
-        }
-        
-        .result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .result-question {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .user-answer.correct {
-            color: var(--correct-color);
-        }
-        
-        .user-answer.wrong {
-            color: var(--wrong-color);
-        }
-        
-        .correct-answer {
-            color: var(--correct-color);
-            font-weight: bold;
-        }
-        
-        .score-display {
-            text-align: center;
-            font-size: 24px;
-            margin: 20px 0;
-            color: var(--primary-color);
-        }
-        
-        .time-taken {
-            text-align: center;
-            font-size: 18px;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        
-        .print-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            display: block;
-            margin: 20px auto;
-        }
-        
-        .print-btn:hover {
-            background-color: #37474F;
-        }
-        
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            .container, .container * {
-                visibility: visible;
-            }
-            .container {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                box-shadow: none;
-            }
-            .unit-btn, .timer, .nav-btn, .submit-btn, .print-btn {
-                display: none !important;
-            }
-        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-
     <div class="container">
-        <h1 style="margin-top: 50px;" id="subject-name">نظام الاختبارات الإلكتروني | الدراسات التاريخية</h1>
-        
-    <!-- 🔷 إحصائيات اللغة العربية -->
-<div class="overall-results" id="overall-results-arabic">
-    <h3>📊 معدل مادة الدراسات التاريخية</h3>
-    <canvas id="overallResultsChartArabic"></canvas>
-    <div id="overallResultsDetailsArabic" class="overall-stats"></div>
-</div>
-
-<!-- مكتبة الرسم البياني -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- تنسيقات -->
-<style>
-.overall-results {
-    padding: 15px;
-    margin: 20px 0;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-#overallResultsChartArabic {
-    max-width: 400px;
-    margin: 0 auto 20px;
-}
-.overall-stats {
-    font-weight: bold;
-    color: #3d6e6a;
-}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const subjectKey = 'arabic';
-
-    const ctx = document.getElementById('overallResultsChartArabic').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['إجابات صحيحة', 'إجابات خاطئة'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: ['#4CAF50', '#F44336']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'bottom' }
-            }
-        }
-    });
-
-    function updateOverallResults() {
-        const allResults = JSON.parse(localStorage.getItem('quiz_results_' + subjectKey)) || [];
-        let totalCorrect = 0;
-        let totalQuestions = 0;
-
-        allResults.forEach(r => {
-            totalCorrect += r.score;
-            totalQuestions += r.total;
-        });
-
-        const percent = totalQuestions ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
-
-        document.getElementById('overallResultsDetailsArabic').textContent =
-            `عدد المحاولات: ${allResults.length} | المعدل العام: ${percent}%`;
-
-        chart.data.datasets[0].data = [totalCorrect, totalQuestions - totalCorrect];
-        chart.update();
-    }
-
-    // نداء مباشر لتحديث الرسم
-    updateOverallResults();
-
-    // 🟢 نداء هذه الدالة في نهاية الاختبار لحفظ النتيجة
-    window.saveQuizResult = function(score, total, timeSpentText = '') {
-        let allResults = JSON.parse(localStorage.getItem('quiz_results_' + subjectKey)) || [];
-        allResults.push({
-            score: score,
-            total: total,
-            percentage: Math.round((score / total) * 100),
-            timeSpent: timeSpentText
-        });
-        localStorage.setItem('quiz_results_' + subjectKey, JSON.stringify(allResults));
-        updateOverallResults();
-    };
-});
-</script>
-        <div class="timer" id="timer">00:00</div>
-        
-        <div class="units-list" id="units-list">
-            <!-- سيتم ملء هذا القسم بالوحدات عبر JavaScript -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap" style="font-size: 2.5rem;"></i>
+            </div>
+            يلا اختبار
         </div>
         
-        <div class="quiz-section" id="quiz-section">
-            <div class="question-part active" data-part="1">
-                <!-- سيتم ملء الأسئلة عبر JavaScript -->
+        <div class="login-form" id="loginForm">
+            <div class="alert alert-error" id="errorAlert">
+                <i class="fas fa-exclamation-circle"></i> رقم الهوية أو كلمة المرور غير صحيحة!
             </div>
             
-            <div class="navigation-btns">
-                <button class="nav-btn" id="prev-btn" disabled>السابق</button>
-                <button class="nav-btn" id="next-btn">التالي</button>
+            <div class="form-group">
+                <input type="text" id="idNumber" placeholder=" " required>
+                <label for="idNumber">رقم الهوية</label>
             </div>
             
-            <button class="submit-btn" id="submit-btn">تسليم الإجابات</button>
+            <div class="form-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">كلمة المرور</label>
+            </div>
+            
+            <button class="login-btn" id="loginBtn">
+                <span>دخول</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
         
-        <div class="results" id="results">
-            <h2>نتيجة الاختبار</h2>
-            <div class="score-display" id="score-display"></div>
-            <div class="time-taken" id="time-taken"></div>
-            <div id="results-content">
-                <!-- سيتم ملء النتائج هنا -->
+        <div class="tests-container" id="testsContainer">
+            <div class="alert alert-success" id="successAlert">
+                <i class="fas fa-check-circle"></i> تم تسجيل الدخول بنجاح! اختر الاختبار المطلوب:
+            </div>      
+            
+            
+            
+            <div class="tests-grid" id="testsGrid">
+                <!-- المواد العلمية -->
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>لغة عربية</span>
+                    <i class="fas fa-book-open"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>تربية إسلامية</span>
+                    <i class="fas fa-mosque"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>رياضيات علمي</span>
+                    <i class="fas fa-square-root-alt"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>لغة إنجليزية</span>
+                    <i class="fas fa-language"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>تكنولوجيا</span>
+                    <i class="fas fa-microchip"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>فيزياء</span>
+                    <i class="fas fa-atom"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>كيمياء</span>
+                    <i class="fas fa-flask"></i>
+                </a>
+                <a href="#" class="test-btn science" data-branch="science">
+                    <span>أحياء</span>
+                    <i class="fas fa-dna"></i>
+                </a>
+                
+                <!-- المواد الأدبية -->
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>لغة عربية 1</span>
+                    <i class="fas fa-book-open"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>لغة عربية 2</span>
+                    <i class="fas fa-pen-fancy"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>تربية إسلامية</span>
+                    <i class="fas fa-mosque"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>رياضيات أدبي</span>
+                    <i class="fas fa-calculator"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>لغة إنجليزية 1</span>
+                    <i class="fas fa-language"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>لغة إنجليزية 2</span>
+                    <i class="fas fa-spell-check"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>تكنولوجيا أدبي</span>
+                    <i class="fas fa-laptop-code"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>ثقافة علمية</span>
+                    <i class="fas fa-microscope"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>جغرافيا</span>
+                    <i class="fas fa-globe-asia"></i>
+                </a>
+                <a href="#" class="test-btn arts" data-branch="arts">
+                    <span>تاريخ</span>
+                    <i class="fas fa-landmark"></i>
+                </a>
             </div>
-            <button class="print-btn" id="print-btn">تصدير النتيجة كملف PDF</button>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // بيانات الاختبار
-            const subjectName = "الدراسات التاريخية - الفرع الأدبي";
-            const units = [
-                { id: 1, name: "اختبار شامل - النموذج الأول" },
-                { id: 2, name: "اختبار شامل - النموذج الثاني" },
-            ];
-            
-            const quizzes = {
-    1:[
-    {
-      "id": 1,
-      "question": "يُعدّ الصراع العسكري بين طرفين أو أكثر لتحقيق أهداف مادية أو فكرية من خلال استخدام القوة والسلاح، من أبرز التعاريف التي تنطبق على:",
-      "options": ["التفاوض السياسي", "الثورة الاجتماعية", "الحرب", "النضال السلمي"],
-      "answer": "الحرب"
-    },
-    {
-      "id": 2,
-      "question": "من أبرز العوامل التي ساهمت في اندلاع الثورات الشعبية المعاصرة في المنطقة العربية، ما يتعلق بتردي الأوضاع السياسية والاجتماعية والاقتصادية، ويظهر ذلك بشكل جلي في:",
-      "options": ["الانتفاضة الفلسطينية الأولى", "الثورة الصناعية", "الحروب الصليبية", "الربيع العربي عام 2010م"],
-      "answer": "الربيع العربي عام 2010م"
-    },
-    {
-      "id": 3,
-      "question": "تشير اتفاقيات جنيف والقانون الدولي الإنساني إلى حماية فئات معينة أثناء النزاعات المسلحة، ومن هذه الفئات ما ورد في وصية الخليفة أبو بكر الصديق، ومنها:",
-      "options": ["المقاتلين من غير المسلمين", "النساء والأطفال ورجال الدين", "الجيوش المحاربة", "ممثلي الدولة المعتدية"],
-      "answer": "النساء والأطفال ورجال الدين"
-    },
-    {
-      "id": 4,
-      "question": "عُرفت بأنها حركة شعبية واسعة النطاق بدأت في الجزائر عام 1954م، ضد الاستعمار الفرنسي، وتميزت بطول أمدها وتكامل أدوارها السياسية والعسكرية، وهي:",
-      "options": ["الثورة الليبية", "الثورة الجزائرية", "الثورة الفلسطينية", "الثورة الفرنسية"],
-      "answer": "الثورة الجزائرية"
-    },
-    {
-      "id": 5,
-      "question": "تندرج الهجمات الخاطفة والانسحاب السريع، مع التركيز على المفاجأة وضرب مراكز العدو، ضمن أساليب:",
-      "options": ["الحروب النفسية", "حرب العصابات", "الحرب الشاملة", "الحرب الاقتصادية"],
-      "answer": "حرب العصابات"
-    },
-    {
-      "id": 6,
-      "question": "في سياق الحروب العالمية، جاءت معركة العلمين كإحدى المحطات الفاصلة في الحرب العالمية الثانية، وقد قاد قوات المحور فيها القائد:",
-      "options": ["موسوليني", "رومل", "تشرشل", "مونتجمري"],
-      "answer": "رومل"
-    },
-    {
-      "id": 7,
-      "question": "اندلعت الانتفاضة الفلسطينية الأولى نتيجة التراكمات السياسية والاجتماعية، وكان الحدث المباشر لانطلاقها في ديسمبر 1987م هو:",
-      "options": ["اعتقال مجموعة من الطلاب", "تهديم أحد المساجد", "دهس عمال فلسطينيين على يد مستوطن", "فرض الضرائب على التجار"],
-      "answer": "دهس عمال فلسطينيين على يد مستوطن"
-    },
-    {
-      "id": 8,
-      "question": "من العوامل التي ساعدت على نجاح الفتوحات الإسلامية، ما يتعلق بضعف الدول الكبرى في ذلك الوقت، نتيجة:",
-      "options": ["انخراطها في التجارة البحرية", "انتشار الفلسفة اليونانية", "تعرضها لحروب داخلية وأوبئة", "تراجع دور رجال الدين"],
-      "answer": "تعرضها لحروب داخلية وأوبئة"
-    },
-    {
-      "id": 9,
-      "question": "يرى المؤرخون أن من أبرز نتائج الحروب الفرنجية على المشرق الإسلامي:",
-      "options": ["تقوية العلاقات مع أوروبا", "نشر الثقافة الإسلامية في الغرب", "إضعاف وحدة العالم الإسلامي", "تعزيز الاقتصاد العربي"],
-      "answer": "إضعاف وحدة العالم الإسلامي"
-    },
-    {
-      "id": 10,
-      "question": "من الأساليب التي لجأ إليها الاحتلال الإسرائيلي خلال الانتفاضة الأولى، وتندرج تحت إطار الحرب النفسية، استخدام:",
-      "options": ["الاعتراف السياسي بالمنظمة", "أسلوب غسيل الدماغ والشائعات", "التعليم الجامعي المجاني", "فتح المعابر للعمال"],
-      "answer": "أسلوب غسيل الدماغ والشائعات"
-    },
-    {
-      "id": 11,
-      "question": "أيٌّ من العوامل التالية ساهم بشكل رئيس في اندلاع الحرب العالمية الأولى، بالنظر إلى التوترات السياسية والعسكرية المتراكمة بين القوى الأوروبية؟",
-      "options": ["تأسيس منظمة الأمم المتحدة", "سباق التسلح والتحالفات العسكرية", "انهيار النظام العثماني", "الحرب الأهلية الأمريكية"],
-      "answer": "سباق التسلح والتحالفات العسكرية"
-    },
-    {
-      "id": 12,
-      "question": "تميّزت الفتوحات الإسلامية في الشام ومصر بسرعة انتشارها، ما العامل الرئيسي الذي ساعد في ذلك؟",
-      "options": ["دعم الإمبراطورية البيزنطية للمسلمين", "ضعف الدول الكبرى بفعل الحروب والأوبئة", "توفر الموارد الطبيعية", "هجرة السكان إلى الجزيرة العربية"],
-      "answer": "ضعف الدول الكبرى بفعل الحروب والأوبئة"
-    },
-    {
-      "id": 13,
-      "question": "ظهر القانون الدولي الإنساني بهدف حماية الإنسان أثناء النزاعات، وهو يستند إلى مبادئ إنسانية من أبرزها:",
-      "options": ["الهيمنة والسيطرة", "استخدام السلاح النووي", "تحييد المدنيين وعدم استهدافهم", "تدمير البنية التحتية للعدو"],
-      "answer": "تحييد المدنيين وعدم استهدافهم"
-    },
-    {
-      "id": 14,
-      "question": "في ضوء دراسة الثورة الجزائرية، ما الأسلوب الذي استخدمته الثورة لتحقيق أهدافها السياسية والعسكرية؟",
-      "options": ["الحوارات الإعلامية", "المفاوضات الدبلوماسية فقط", "الكفاح المسلح والمنظمات السرية", "الاستفتاءات الشعبية"],
-      "answer": "الكفاح المسلح والمنظمات السرية"
-    },
-    {
-      "id": 15,
-      "question": "من الأمثلة على تأثير الفتوحات الإسلامية في الحضارة الإنسانية، أنها ساهمت في:",
-      "options": ["القضاء على اللغة العربية", "تعزيز الحضارة الغربية", "بناء مدن وتطوير علوم الطب والفلك", "إغلاق المراكز العلمية القديمة"],
-      "answer": "بناء مدن وتطوير علوم الطب والفلك"
-    },
-    {
-      "id": 16,
-      "question": "انتهت الحرب العالمية الثانية بعد استسلام اليابان، وذلك بعد أن:",
-      "options": ["أعلنت هدنة مع الاتحاد السوفييتي", "تم غزوها بريًا من الصين", "تعرّضت لقصف ذري من قبل الولايات المتحدة", "خسرت معركة العلمين"],
-      "answer": "تعرّضت لقصف ذري من قبل الولايات المتحدة"
-    },
-    {
-      "id": 17,
-      "question": "اندلعت الانتفاضة الفلسطينية الأولى عام 1987 نتيجة تراكمات عدة، وكان الحدث المفجّر لها:",
-      "options": ["اقتحام المسجد الأقصى", "إعلان دولة فلسطين", "دهس عمال فلسطينيين من قبل مستوطن", "اتفاقية أوسلو"],
-      "answer": "دهس عمال فلسطينيين من قبل مستوطن"
-    },
-    {
-      "id": 18,
-      "question": "أطلقت الحملة الصليبية الرابعة باتجاه هدف معين، لكنها انحرفت عن مسارها الأصلي لتستهدف مدينة:",
-      "options": ["بيت المقدس", "القسطنطينية", "روما", "طرابلس"],
-      "answer": "القسطنطينية"
-    },
-    {
-      "id": 19,
-      "question": "من العوامل الاقتصادية التي دفعت الأوروبيين لشن الحروب الفرنجية:",
-      "options": ["رغبتهم في تطوير الصناعة", "السيطرة على طرق التجارة والمؤن", "تحرير الأسرى", "دعم الفلاحين المحليين"],
-      "answer": "السيطرة على طرق التجارة والمؤن"
-    },
-    {
-      "id": 20,
-      "question": "تعتبر الثورة الشعبية حركة جماهيرية شاملة تهدف إلى:",
-      "options": ["تعزيز النظام القائم", "فرض الضرائب", "تغيير جذري في النظام السياسي والاقتصادي والاجتماعي", "تمديد فترة حكم القيادة"],
-      "answer": "تغيير جذري في النظام السياسي والاقتصادي والاجتماعي"
-    },
-    {
-      "id": 21,
-      "question": "من أبرز شعارات الربيع العربي التي عبّرت عن إرادة الشعوب:",
-      "options": ["نعم للاستقرار الأمني", "الشعب يريد إسقاط النظام", "لا للحروب", "التعليم أولاً"],
-      "answer": "الشعب يريد إسقاط النظام"
-    },
-    {
-      "id": 22,
-      "question": "تُعدُّ اتفاقية سايكس بيكو من الاتفاقيات التي:",
-      "options": ["أنهت الاستعمار الأوروبي", "وزعت المشرق العربي بين الدول الأوروبية", "منحت فلسطين استقلالها", "حرّمت استخدام الأسلحة النووية"],
-      "answer": "وزعت المشرق العربي بين الدول الأوروبية"
-    },
-    {
-      "id": 23,
-      "question": "كانت الهزيمة التي تعرض لها نابليون في معركة واترلو مشابهة لهزيمة الفرنجة في معركة:",
-      "options": ["حطين", "عين جالوت", "اليرموك", "بلاط الشهداء"],
-      "answer": "حطين"
-    },
-    {
-      "id": 24,
-      "question": "تميّز الحراك العربي عام 2010 بأساليبه المتنوعة، من بينها:",
-      "options": ["استخدام المنابر الرسمية فقط", "الاعتماد على الحملات العسكرية", "التظاهر السلمي واستخدام وسائل التواصل", "التنظيم الحزبي المغلق"],
-      "answer": "التظاهر السلمي واستخدام وسائل التواصل"
-    },
-    {
-      "id": 25,
-      "question": "في إطار الفتوحات الإسلامية، شكّلت مدينة القيروان مركزًا مهمًا لنشر الإسلام في شمال إفريقيا. من القائد الذي أسسها؟",
-      "options": ["طارق بن زياد", "عقبة بن نافع", "عمرو بن العاص", "موسى بن نصير"],
-      "answer": "عقبة بن نافع"
-    },
-    {
-      "id": 26,
-      "question": "ظهر مصطلح \"الانتفاضة\" في التاريخ الفلسطيني كنوع من المقاومة الشعبية. ما أبرز أشكال هذه المقاومة؟",
-      "options": ["الاعتصامات في السفارات", "المسيرات السلمية والإضرابات", "الانضمام للأحزاب الأجنبية", "التعامل التجاري مع الاحتلال"],
-      "answer": "المسيرات السلمية والإضرابات"
-    },
-    {
-      "id": 27,
-      "question": "تمثل الهزيمة التي تعرّضت لها فرنسا في الجزائر عام 1962م واحدة من نتائج:",
-      "options": ["فشل الاحتلال في استغلال الثروات", "قوة الثورة العسكرية والمقاومة الشعبية", "التدخل الأمريكي", "فشل الانتخابات الجزائرية"],
-      "answer": "قوة الثورة العسكرية والمقاومة الشعبية"
-    },
-    {
-      "id": 28,
-      "question": "بم تفسر نجاح الفتح الإسلامي في الشام؟",
-      "options": ["استخدام القوة النووية", "اعتماد الحصار فقط", "حسن معاملة السكان المحليين وضعف الرومان", "التحالف مع اليهود"],
-      "answer": "حسن معاملة السكان المحليين وضعف الرومان"
-    },
-    {
-      "id": 29,
-      "question": "كان لتقسيم العالم العربي بعد الحرب العالمية الأولى تأثير كبير على استقلال الشعوب، ما الاتفاقية التي أدّت إلى هذا التقسيم؟",
-      "options": ["فرساي", "بلفور", "سايكس بيكو", "سان ريمو"],
-      "answer": "سايكس بيكو"
-    },
-    {
-      "id": 30,
-      "question": "من أبرز القوانين التي ظهرت لحماية المدنيين أثناء النزاعات المسلحة ما يُعرف بـ:",
-      "options": ["القانون التجاري الدولي", "القانون الجنائي الخاص", "القانون الدولي الإنساني", "القانون الإداري العسكري"],
-      "answer": "القانون الدولي الإنساني"
-    },
-    {
-      "id": 31,
-      "question": "قامت الثورة الجزائرية بتحقيق الاستقلال من فرنسا بعد توقيع اتفاقية:",
-      "options": ["كامب ديفيد", "سايكس بيكو", "إيفيان", "أوسلو"],
-      "answer": "إيفيان"
-    },
-    {
-      "id": 32,
-      "question": "سقوط جدار برلين وانهيار الاتحاد السوفييتي يعد من أبرز نتائج:",
-      "options": ["الحرب العالمية الأولى", "الحرب الباردة", "الحرب العالمية الثانية", "الحرب الفرنسية الجزائرية"],
-      "answer": "الحرب الباردة"
-    },
-    {
-      "id": 33,
-      "question": "أصدرت القيادة الوطنية الموحدة في الانتفاضة الفلسطينية مجموعة من البيانات، وكان هدفها:",
-      "options": ["تشكيل حكومة جديدة", "تحديد المواقف السياسية فقط", "تنظيم المقاومة وتوحيد الجهود", "تسليم السلاح"],
-      "answer": "تنظيم المقاومة وتوحيد الجهود"
-    },
-    {
-      "id": 34,
-      "question": "نتج عن الثورة الجزائرية مكاسب كثيرة، من أبرزها:",
-      "options": ["استمرار الوجود الفرنسي", "استقلال سياسي واقتصادي وثقافي", "تقسيم الجزائر إلى ولايات فرنسية", "إقامة حلف عسكري مع أوروبا"],
-      "answer": "استقلال سياسي واقتصادي وثقافي"
-    },
-    {
-      "id": 35,
-      "question": "من أبرز الأساليب السلمية التي اتبعها المتظاهرون في الربيع العربي:",
-      "options": ["التفاوض خلف الكواليس", "الاغتيالات السياسية", "استخدام اللافتات والشعارات", "تدمير الممتلكات العامة"],
-      "answer": "استخدام اللافتات والشعارات"
-    },
-    {
-      "id": 36,
-      "question": "تميزت الحروب الفرنجية في بدايتها بأهداف دينية معلنة، لكنها تحوّلت لاحقًا إلى أهداف:",
-      "options": ["بيئية", "اقتصادية واستعمارية", "تعليمية وثقافية", "رياضية"],
-      "answer": "اقتصادية واستعمارية"
-    },
-    {
-      "id": 37,
-      "question": "اندلعت معركة بلاط الشهداء عام 114هـ، وكان لها دور في:",
-      "options": ["نشر الإسلام في الصين", "وقف التوسع الإسلامي في أوروبا", "القضاء على الفرس", "تحرير فلسطين"],
-      "answer": "وقف التوسع الإسلامي في أوروبا"
-    },
-    {
-      "id": 38,
-      "question": "من أبرز نتائج الحرب العالمية الثانية:",
-      "options": ["تحسن العلاقات الدولية", "تفكك الاتحاد الأوروبي", "ظهور نظام عالمي جديد وهيئة الأمم المتحدة", "انحسار الثورة الصناعية"],
-      "answer": "ظهور نظام عالمي جديد وهيئة الأمم المتحدة"
-    },
-    {
-      "id": 39,
-      "question": "اتخذت المقاومة الفلسطينية خلال الانتفاضة الأولى أشكالاً مختلفة، من بينها:",
-      "options": ["إشعال إطارات السيارات التالفة", "الصدامات المسلحة فقط", "إطلاق صواريخ بعيدة المدى", "التفاوض مع الاحتلال"],
-      "answer": "مقاطعة البضائع الإسرائيلية"
-    },
-    {
-      "id": 40,
-      "question": "يُعتبر القانون الدولي الإنساني مكملًا لمبادئ الأخلاق في الحرب، ومن أقدم من جسّد هذه المبادئ:",
-      "options": ["نابليون بونابرت", "الخليفة عمر بن عبد العزيز", "الخليفة أبو بكر الصديق", "صلاح الدين الأيوبي"],
-      "answer": "الخليفة أبو بكر الصديق"
-    }
-  ],
-
-
-
-
-
-2:[
-   
-
-     {
-      "id": 1,
-      "question": "ما المقصود بالحرب؟",
-      "options": ["خلاف سياسي ينتهي بالتفاوض", "استخدام وسائل سلمية لحل النزاعات", "صراع بين أطراف لتحقيق أهداف بالقوة", "إجراء اقتصادي لإضعاف العدو"],
-      "answer": "صراع بين أطراف لتحقيق أهداف بالقوة"
-    },
-    {
-      "id": 2,
-      "question": "أي من الآتي يعدّ من دوافع الحروب؟",
-      "options": ["تطوير التكنولوجيا", "تحقيق الهيمنة والتوسع", "تعزيز الثقافة الوطنية", "تنظيم التجارة الدولية"],
-      "answer": "تحقيق الهيمنة والتوسع"
-    },
-    {
-      "id": 3,
-      "question": "ما اسم القانون الذي ينظم سلوك المتحاربين؟",
-      "options": ["القانون الدولي الإنساني", "القانون الإداري", "القانون الجنائي الدولي", "القانون المدني"],
-      "answer": "القانون الدولي الإنساني"
-    },
-    {
-      "id": 4,
-      "question": "ما المعركة التي أوقفت الفتوحات الإسلامية في أوروبا عام 114هـ؟",
-      "options": ["وادي لكة", "تهوذة", "بلاط الشهداء", "الجبل الأخضر"],
-      "answer": "بلاط الشهداء"
-    },
-    {
-      "id": 5,
-      "question": "من المدينة التي أنشأها عقبة بن نافع؟",
-      "options": ["القيروان", "الفسطاط", "بغداد", "الكوفة"],
-      "answer": "القيروان"
-    },
-    {
-      "id": 6,
-      "question": "في أي عام اندلعت الحرب العالمية الأولى؟",
-      "options": ["1914", "1920", "1939", "1945"],
-      "answer": "1914"
-    },
-    {
-      "id": 7,
-      "question": "من قائد قوات المحور في معركة العلمين؟",
-      "options": ["رومل", "هتلر", "موسوليني", "مونتجمري"],
-      "answer": "رومل"
-    },
-    {
-      "id": 8,
-      "question": "ما الدولة التي أدت هزيمتها إلى انتهاء الحرب العالمية الثانية؟",
-      "options": ["ألمانيا", "اليابان", "إيطاليا", "فرنسا"],
-      "answer": "اليابان"
-    },
-    {
-      "id": 9,
-      "question": "متى اندلعت الثورة الجزائرية؟",
-      "options": ["1952م", "1954م", "1962م", "1948م"],
-      "answer": "1954م"
-    },
-    {
-      "id": 10,
-      "question": "من أول رئيس للجزائر بعد الاستقلال؟",
-      "options": ["فرحات عباس", "أحمد بن بيلا", "عبد الحميد بن باديس", "هواري بومدين"],
-      "answer": "أحمد بن بيلا"
-    },
-    {
-      "id": 11,
-      "question": "ما نوع الحرب التي تعتمد على الكر والفر وتستخدمها حركات التحرر؟",
-      "options": ["الحرب النفسية", "حرب العصابات", "الحرب الباردة", "الحرب الشاملة"],
-      "answer": "حرب العصابات"
-    },
-    {
-      "id": 12,
-      "question": "متى اندلعت الانتفاضة الفلسطينية الأولى؟",
-      "options": ["2000م", "1967م", "1987م", "1994م"],
-      "answer": "1987م"
-    },
-    {
-      "id": 13,
-      "question": "أي من الآتي ليس من سمات الفتوحات الإسلامية؟",
-      "options": ["نشر الإسلام", "استعمار اقتصادي", "بناء حضارات", "تأسيس مدن"],
-      "answer": "استعمار اقتصادي"
-    },
-    {
-      "id": 14,
-      "question": "ما المعركة التي اعتبرت فاصلة في فتوحات بلاد فارس؟",
-      "options": ["الجسر", "عين التمر", "القادسية", "نهاوند"],
-      "answer": "نهاوند"
-    },
-    {
-      "id": 15,
-      "question": "ما الحرب التي استخدمت فيها وسائل غير عسكرية كالدعاية والشائعات؟",
-      "options": ["الحرب الشاملة", "الحرب الباردة", "حرب العصابات", "الحرب النفسية"],
-      "answer": "الحرب النفسية"
-    },
-    {
-      "id": 16,
-      "question": "ما المدينة التي تم فتحها سلميًا في بلاد الشام؟",
-      "options": ["دمشق", "بُصرى", "اليرموك", "أنطاكية"],
-      "answer": "بُصرى"
-    },
-    {
-      "id": 17,
-      "question": "من قائد حملة فتح مصر؟",
-      "options": ["عقبة بن نافع", "موسى بن نصير", "عمرو بن العاص", "طارق بن زياد"],
-      "answer": "عمرو بن العاص"
-    },
-    {
-      "id": 18,
-      "question": "ما اسم الوثيقة التي أصدرها عمر بن الخطاب لأهل إيلياء؟",
-      "options": ["الميثاق العربي", "العهدة العمريّة", "الصحيفة المحمدية", "وثيقة المدينة"],
-      "answer": "العهدة العمريّة"
-    },
-    {
-      "id": 19,
-      "question": "ما المدينة التي فتحها طارق بن زياد؟",
-      "options": ["القسطنطينية", "طرابلس", "قرطبة", "الأندلس"],
-      "answer": "الأندلس"
-    },
-    {
-      "id": 20,
-      "question": "ما الحملة الفرنجية التي استهدفت القسطنطينية؟",
-      "options": ["الأولى", "الرابعة", "السادسة", "الثامنة"],
-      "answer": "الرابعة"
-    },
-    {
-      "id": 21,
-      "question": "أين عقد البابا أوربان الثاني مؤتمر كليرمونت؟",
-      "options": ["ألمانيا", "إنجلترا", "فرنسا", "إيطاليا"],
-      "answer": "فرنسا"
-    },
-    {
-      "id": 22,
-      "question": "ما سبب فشل الحملة السابعة على مصر؟",
-      "options": ["نقص التموين", "مقاومة المسلمين بقيادة قطز", "ضعف القوات", "البرد القارس"],
-      "answer": "مقاومة المسلمين بقيادة قطز"
-    },
-    {
-      "id": 23,
-      "question": "ما اسم المعركة التي انتصر فيها صلاح الدين الأيوبي على الفرنجة؟",
-      "options": ["عين جالوت", "حطين", "مؤتة", "بلاط الشهداء"],
-      "answer": "حطين"
-    },
-    {
-      "id": 24,
-      "question": "أين تم تأسيس الهلال الأحمر؟",
-      "options": ["إيطاليا", "مصر", "سويسرا", "فرنسا"],
-      "answer": "سويسرا"
-    },
-    {
-      "id": 25,
-      "question": "في أي عام بدأت الحرب العالمية الثانية؟",
-      "options": ["1939", "1945", "1914", "1920"],
-      "answer": "1939"
-    },
-    {
-      "id": 26,
-      "question": "ما المدينة التي قصفت بها أمريكا القنبلة الذرية أولاً؟",
-      "options": ["ناغازاكي", "طوكيو", "هيروشيما", "كيوتو"],
-      "answer": "هيروشيما"
-    },
-    {
-      "id": 27,
-      "question": "أي من العوامل ساهمت في قيام الحرب العالمية الأولى؟",
-      "options": ["الصراع الديني", "الثورة الفرنسية", "النزعة القومية والتسليح", "الثورة الصناعية"],
-      "answer": "النزعة القومية والتسليح"
-    },
-    {
-      "id": 28,
-      "question": "ما اسم الاتفاقية التي أنهت الحرب العالمية الأولى؟",
-      "options": ["فرساي", "سايكس بيكو", "سان ريمو", "باريس"],
-      "answer": "فرساي"
-    },
-    {
-      "id": 29,
-      "question": "ما نتيجة اتفاقية سايكس بيكو؟",
-      "options": ["تقسيم العالم الإسلامي", "وقف إطلاق النار", "استقلال الدول العربية", "نهاية الاحتلال الفرنسي"],
-      "answer": "تقسيم العالم الإسلامي"
-    },
-    {
-      "id": 30,
-      "question": "من نتائج الحرب العالمية الثانية:",
-      "options": ["تعزيز دور عصبة الأمم", "إنشاء هيئة الأمم المتحدة", "زيادة الاستعمار", "انهيار فرنسا"],
-      "answer": "إنشاء هيئة الأمم المتحدة"
-    },
-    {
-      "id": 31,
-      "question": "متى بدأت الانتفاضة الفلسطينية الأولى؟",
-      "options": ["1987", "1994", "2000", "1973"],
-      "answer": "1987"
-    },
-    {
-      "id": 32,
-      "question": "ما الأسلوب الذي استخدمه الاحتلال الإسرائيلي في الانتفاضة؟",
-      "options": ["المعاهدات فقط", "الردع بالقوة", "الانسحاب الكامل", "الإعلام الحر"],
-      "answer": "الردع بالقوة"
-    },
-    {
-      "id": 33,
-      "question": "متى اندلعت ثورات الربيع العربي؟",
-      "options": ["2005", "2011", "2000", "2020"],
-      "answer": "2011"
-    },
-    {
-      "id": 34,
-      "question": "ما سبب رئيسي لاندلاع الربيع العربي؟",
-      "options": ["الاستعمار", "الأوضاع الاقتصادية والسياسية المتدهورة", "قيام حروب خارجية", "الاحتلال الصهيوني"],
-      "answer": "الأوضاع الاقتصادية والسياسية المتدهورة"
-    },
-    {
-      "id": 35,
-      "question": "من أبرز شعارات الثورات العربية؟",
-      "options": ["لا للعلمانية", "العدالة أولاً", "الشعب يريد إسقاط النظام", "الحكم للجيش"],
-      "answer": "الشعب يريد إسقاط النظام"
-    },
-    {
-      "id": 36,
-      "question": "ما الدولة التي بدأت منها شرارة الربيع العربي؟",
-      "options": ["مصر", "ليبيا", "سوريا", "تونس"],
-      "answer": "تونس"
-    },
-    {
-      "id": 37,
-      "question": "أي من الأساليب استخدمها الاحتلال ضد الأسرى الفلسطينيين؟",
-      "options": ["المعاملة الإنسانية", "التعليم والتأهيل", "العزل الانفرادي والتعذيب", "الرعاية الطبية الكاملة"],
-      "answer": "العزل الانفرادي والتعذيب"
-    },
-    {
-      "id": 38,
-      "question": "أي من المبادئ التالية ينتمي للقانون الدولي الإنساني؟",
-      "options": ["المصلحة العامة فقط", "التفوق العسكري", "التمييز بين المدنيين والعسكريين", "استخدام القوة المفرطة"],
-      "answer": "التمييز بين المدنيين والعسكريين"
-    },
-    {
-      "id": 39,
-      "question": "ما السلاح الذي حظر استخدامه وفق اتفاقيات الحرب؟",
-      "options": ["السيوف", "البنادق", "الأسلحة الكيماوية والبيولوجية", "المدرعات"],
-      "answer": "الأسلحة الكيماوية والبيولوجية"
-    },
-    {
-      "id": 40,
-      "question": "ما المنظمة التي تأسست بعد الحرب العالمية الثانية لحفظ الأمن؟",
-      "options": ["الاتحاد الأوروبي", "هيئة الأمم المتحدة", "حلف وارسو", "جامعة الدول العربية"],
-      "answer": "هيئة الأمم المتحدة"
-    }
-  ]
-
-};
-
-            // تعيين اسم المادة
-            document.getElementById('subject-name').textContent = `اختبار ${subjectName}`;
-            
-            // إنشاء قائمة الوحدات
-            const unitsList = document.getElementById('units-list');
-            units.forEach(unit => {
-                const unitBtn = document.createElement('button');
-                unitBtn.className = 'unit-btn';
-                unitBtn.textContent = unit.name;
-                unitBtn.dataset.unitId = unit.id;
-                unitBtn.addEventListener('click', () => startQuiz(unit.id));
-                unitsList.appendChild(unitBtn);
+        // بيانات المستخدمين المسجلين مع تحديد الفرع
+        const users = [
+            { id: "123456", password: "test123", branch: "science" },
+            { id: "654321", password: "yalatest", branch: "arts" },
+            { id: "111222", password: "student1", branch: "science" },
+            { id: "333444", password: "pass1234", branch: "arts" }
+        ];
+        
+        // عناصر DOM
+        const loginForm = document.getElementById('loginForm');
+        const testsContainer = document.getElementById('testsContainer');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorAlert = document.getElementById('errorAlert');
+        const successAlert = document.getElementById('successAlert');
+        const idNumberInput = document.getElementById('idNumber');
+        const passwordInput = document.getElementById('password');
+        const testButtons = document.querySelectorAll('.test-btn');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const testsGrid = document.getElementById('testsGrid');
+        
+        // تصفية الاختبارات حسب الفرع
+        function filterTests(branch) {
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === branch) {
+                    btn.classList.add('active');
+                }
             });
             
-            // متغيرات النظام
-            let currentUnit = null;
-            let currentPart = 1;
-            let totalParts = 0;
-            let userAnswers = {};
-            let timerInterval = null;
-            let startTime = null;
-            let timeLeft = localStorage.getItem('quiz_time_left') ? parseInt(localStorage.getItem('quiz_time_left')) : 3600; // 30 دقيقة بالثواني
-            
-            // عناصر واجهة المستخدم
-            const quizSection = document.getElementById('quiz-section');
-            const resultsSection = document.getElementById('results');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const submitBtn = document.getElementById('submit-btn');
-            const timerElement = document.getElementById('timer');
-            const printBtn = document.getElementById('print-btn');
-            
-            // بدء المؤقت
-            function startTimer() {
-                startTime = Date.now();
-                updateTimerDisplay();
-                timerInterval = setInterval(updateTimer, 1000);
-                localStorage.setItem('quiz_time_left', timeLeft.toString());
-            }
-            
-            // تحديث المؤقت
-            function updateTimer() {
-                timeLeft--;
-                updateTimerDisplay();
-                localStorage.setItem('quiz_time_left', timeLeft.toString());
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    submitQuiz();
-                }
-            }
-            
-            // تحديث عرض المؤقت
-            function updateTimerDisplay() {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-            
-            // بدء الاختبار
-            function startQuiz(unitId) {
-                currentUnit = unitId;
-                userAnswers = {};
-                currentPart = 1;
-                
-                // إخفاء قائمة الوحدات
-                unitsList.style.display = 'none';
-                
-                // عرض قسم الاختبار
-                quizSection.style.display = 'block';
-                quizSection.classList.add('active');
-                
-                // إعداد الأسئلة
-                setupQuestions(unitId);
-                
-                // بدء المؤقت
-                if (!timerInterval) {
-                    startTimer();
-                }
-            }
-            
-            // إعداد الأسئلة
-            function setupQuestions(unitId) {
-                const questions = quizzes[unitId];
-                totalParts = Math.ceil(questions.length / 3);
-                
-                // مسح الأقسام السابقة
-                const quizSection = document.getElementById('quiz-section');
-                const existingParts = quizSection.querySelectorAll('.question-part');
-                existingParts.forEach(part => {
-                    if (!part.classList.contains('active')) {
-                        part.remove();
-                    }
-                });
-                
-                // إنشاء أقسام جديدة
-                for (let i = 1; i <= totalParts; i++) {
-                    if (i === 1) continue; // تخطي القسم الأول الموجود بالفعل
-                    
-                    const partDiv = document.createElement('div');
-                    partDiv.className = 'question-part';
-                    partDiv.dataset.part = i;
-                    quizSection.insertBefore(partDiv, document.querySelector('.navigation-btns'));
-                }
-                
-                // تعبئة الأسئلة في الأقسام
-                questions.forEach((question, index) => {
-                    const partNumber = Math.floor(index / 3) + 1;
-                    const partDiv = document.querySelector(`.question-part[data-part="${partNumber}"]`);
-                    
-                    const questionDiv = document.createElement('div');
-                    questionDiv.className = 'question';
-                    questionDiv.dataset.questionId = question.id;
-                    
-                    const questionTitle = document.createElement('h3');
-                    questionTitle.textContent = `السؤال ${index + 1}: ${question.question}`;
-                    
-                    const optionsDiv = document.createElement('div');
-                    optionsDiv.className = 'options';
-                    
-                    question.options.forEach((option, optIndex) => {
-                        const optionDiv = document.createElement('div');
-                        optionDiv.className = 'option';
-                        optionDiv.textContent = option;
-                        optionDiv.dataset.option = option;
-                        
-                        optionDiv.addEventListener('click', function() {
-                            // إزالة التحديد من جميع الخيارات لهذا السؤال
-                            const allOptions = this.parentElement.querySelectorAll('.option');
-                            allOptions.forEach(opt => opt.classList.remove('selected'));
-                            
-                            // تحديد الخيار الحالي
-                            this.classList.add('selected');
-                            
-                            // حفظ الإجابة
-                            userAnswers[question.id] = option;
-                        });
-                        
-                        optionsDiv.appendChild(optionDiv);
+            testButtons.forEach(btn => {
+                if (branch === 'all' || btn.dataset.branch === branch) {
+                    btn.style.display = 'flex';
+                    gsap.to(btn, { opacity: 1, y: 0, duration: 0.3 });
+                } else {
+                    gsap.to(btn, { 
+                        opacity: 0, 
+                        y: 20, 
+                        duration: 0.3,
+                        onComplete: () => {
+                            btn.style.display = 'none';
+                        }
                     });
-                    
-                    questionDiv.appendChild(questionTitle);
-                    questionDiv.appendChild(optionsDiv);
-                    partDiv.appendChild(questionDiv);
-                });
-                
-                // عرض القسم الأول
-                showPart(1);
-            }
-            
-            // عرض قسم معين
-            function showPart(partNumber) {
-                // إخفاء جميع الأقسام
-                document.querySelectorAll('.question-part').forEach(part => {
-                    part.classList.remove('active');
-                });
-                
-                // عرض القسم المطلوب
-                document.querySelector(`.question-part[data-part="${partNumber}"]`).classList.add('active');
-                
-                // تحديث أزرار التنقل
-                prevBtn.disabled = partNumber === 1;
-                nextBtn.disabled = partNumber === totalParts;
-                
-                // تحديث الإجابات المحددة مسبقاً
-                const currentPartQuestions = document.querySelectorAll(`.question-part[data-part="${partNumber}"] .question`);
-                currentPartQuestions.forEach(questionDiv => {
-                    const questionId = parseInt(questionDiv.dataset.questionId);
-                    if (userAnswers[questionId]) {
-                        const options = questionDiv.querySelectorAll('.option');
-                        options.forEach(option => {
-                            if (option.dataset.option === userAnswers[questionId]) {
-                                option.classList.add('selected');
-                            }
-                        });
-                    }
-                });
-            }
-            
-            // تقديم الاختبار
-            function submitQuiz() {
-                clearInterval(timerInterval);
-                localStorage.removeItem('quiz_time_left');
-                
-                // إخفاء قسم الاختبار
-                quizSection.style.display = 'none';
-                
-                // عرض النتائج
-                showResults();
-
-            }
-            
-            // عرض النتائج
-            function showResults() {
-                const questions = quizzes[currentUnit];
-                let correctCount = 0;
-                const resultsContent = document.getElementById('results-content');
-                resultsContent.innerHTML = '';
-                
-                // حساب النتائج
-                questions.forEach(question => {
-                    const isCorrect = userAnswers[question.id] === question.answer;
-                    if (isCorrect) correctCount++;
-                    
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-                    
-                    const resultQuestion = document.createElement('div');
-                    resultQuestion.className = 'result-question';
-                    resultQuestion.textContent = question.question;
-                    
-                    const userAnswerDiv = document.createElement('div');
-                    userAnswerDiv.className = `user-answer ${isCorrect ? 'correct' : 'wrong'}`;
-                    userAnswerDiv.textContent = `إجابتك: ${userAnswers[question.id] || 'لم يتم الإجابة'}`;
-                    
-                    const correctAnswerDiv = document.createElement('div');
-                    correctAnswerDiv.className = 'correct-answer';
-                    correctAnswerDiv.textContent = `الإجابة الصحيحة: ${question.answer}`;
-                    
-                    resultItem.appendChild(resultQuestion);
-                    resultItem.appendChild(userAnswerDiv);
-                    resultItem.appendChild(correctAnswerDiv);
-                    resultsContent.appendChild(resultItem);
-                    
-
-                });
-                
-                // عرض النتيجة النهائية
-                const scorePercentage = Math.round((correctCount / questions.length) * 100);
-                document.getElementById('score-display').textContent = `علامتك: ${correctCount} من ${questions.length} (${scorePercentage}%)`;
-                
-                // حساب الوقت المستغرق
-                const timeSpent = 3600 - timeLeft;
-                const minutes = Math.floor(timeSpent / 60);
-                const seconds = timeSpent % 60;
-                document.getElementById('time-taken').textContent = `الوقت المستغرق: ${minutes} دقائق و ${seconds} ثواني`;
-                
-                // عرض قسم النتائج
-                resultsSection.style.display = 'block';
-                saveQuizResult(correctCount, questions.length, `${minutes} دقائق و ${seconds} ثواني`);
-
-            }
-            
-            // أحداث الأزرار
-            prevBtn.addEventListener('click', function() {
-                if (currentPart > 1) {
-                    currentPart--;
-                    showPart(currentPart);
                 }
             });
+        }
+        
+        // أحداث الفلترة
+        // filterButtons.forEach(btn => {
+        //     btn.addEventListener('click', () => {
+        //         filterTests(btn.dataset.filter);
+        //     });
+        // });
+        
+        // حدث النقر على زر الدخول
+        loginBtn.addEventListener('click', function() {
+            const idNumber = idNumberInput.value.trim();
+            const password = passwordInput.value.trim();
             
-            nextBtn.addEventListener('click', function() {
-                if (currentPart < totalParts) {
-                    currentPart++;
-                    showPart(currentPart);
-                }
-            });
+            // التحقق من الحقول الفارغة
+            if (!idNumber || !password) {
+                showError("يرجى ملء جميع الحقول");
+                shakeInputs();
+                return;
+            }
             
-            submitBtn.addEventListener('click', submitQuiz);
+            // البحث عن المستخدم
+            const user = users.find(u => u.id === idNumber && u.password === password);
             
-            printBtn.addEventListener('click', function() {
-                window.print();
-            });
-            
-            // استعادة المؤقت إذا كان هناك اختبار جاري
-            if (localStorage.getItem('quiz_time_left')) {
-                updateTimerDisplay();
+            if (user) {
+                // تسجيل الدخول الناجح
+                loginSuccess(user.branch);
+            } else {
+                // فشل تسجيل الدخول
+                showError("رقم الهوية أو كلمة المرور غير صحيحة!");
+                shakeInputs();
             }
         });
+        
+        // عرض رسالة الخطأ
+        function showError(message) {
+            errorAlert.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorAlert.style.display = 'block';
+            successAlert.style.display = 'none';
+        }
+        
+        // اهتزاز الحقول عند الخطأ
+        function shakeInputs() {
+            gsap.to([idNumberInput, passwordInput], {
+                x: [-5, 5, -5, 5, 0],
+                duration: 0.5,
+                ease: "power1.inOut"
+            });
+        }
+        
+        // تسجيل الدخول الناجح
+        function loginSuccess(userBranch) {
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'block';
+            
+            // إخفاء نموذج الدخول مع أنيميشن
+            gsap.to(loginForm, {
+                opacity: 0,
+                y: -50,
+                duration: 0.5,
+                ease: "power1.out",
+                onComplete: () => {
+                    loginForm.style.display = 'none';
+                    testsContainer.style.display = 'block';
+                    
+                    // فلترة تلقائية حسب فرع المستخدم
+                    filterTests(userBranch);
+                    
+                    // إظهار أزرار الاختبارات بتتابع
+                    gsap.to(testButtons, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        ease: "back.out"
+                    });
+                }
+            });
+        }
+        
+        // تأثير الكتابة الآلي للشعار
+        const title = document.querySelector('.header');
+        const originalText = title.textContent.trim();
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            } else {
+                // إضافة أيقونة بعد اكتمال الكتابة
+                title.innerHTML += ' <i class="fas fa-rocket" style="font-size: 1.2em;"></i>';
+            }
+        }
+        
+        // بدء تأثير الكتابة عند تحميل الصفحة
+        setTimeout(typeWriter, 500);
     </script>
 </body>
 </html>
